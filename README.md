@@ -12,7 +12,7 @@ Those functions collect the flow and:
 1. Destroy its collection job on LifecycleOwner's `onStop()`.
 2. Recreates its collection job on LifecycleOwner's `onStart()`.
 
-# Motivation
+## Motivation
 
 The main motivation for this library is to have lifecycle-aware collectors much like those that can be launched with:
 
@@ -43,5 +43,28 @@ On app-level `build.gradle`, add dependency:
 ```groovy
 dependencies {
     implementation 'com.github.psteiger:flow-lifecycle-observer:0.1.1'
+}
+```
+
+## Usage
+
+```kotlin
+@AndroidEntryPoint
+class NearbyUsersActivity : AppCompatActivity() {
+    
+    private val viewModel: NearbyUsersViewModel by viewModels()
+    
+    override fun onCreate(savedInstanceState: Bundle?) {
+        viewModel
+            .locations
+            .onEach { /* new locations received */ }
+            .observeIn(this)
+            
+        viewModel
+            .users
+            .observe(this) {
+                /* new users received */
+            }
+    }
 }
 ```
