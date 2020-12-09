@@ -1,0 +1,2 @@
+rootProject.name = "flow-lifecycle-observer"
+include ':flow-lifecycle-observer'
