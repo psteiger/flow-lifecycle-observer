@@ -42,7 +42,7 @@ On app-level `build.gradle`, add dependency:
 
 ```groovy
 dependencies {
-    implementation 'com.github.psteiger:flow-lifecycle-observer:0.1.1'
+    implementation 'com.github.psteiger:flow-lifecycle-observer:0.1.2'
 }
 ```
 
