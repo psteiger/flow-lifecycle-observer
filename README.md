@@ -2,15 +2,22 @@
 
 [![](https://jitpack.io/v/psteiger/flow-lifecycle-observer.svg)](https://jitpack.io/#psteiger/flow-lifecycle-observer)
 
-This library provides two `Flow<T>` extension functions:
+This library provides four `Flow<T>` extension functions for collecting flows in a lifecycle-aware manner.
 
-1. `Flow<T>.observeIn(LifecycleOwner)`
-2. `Flow<T>.observe(LifecycleOwner, suspend (T) -> Unit)`
+Two of the extensions functions are for collecting `Flow<T>` while `LifecycleOwner` is in `RESUMED` state:
+
+1. `Flow<T>.collectWhileResumedIn(LifecycleOwner)`
+2. `Flow<T>.collectWhileResumed(LifecycleOwner, suspend (T) -> Unit)`
+
+The other two are for collecting `Flow<T>` while `LifecycleOwner` is in `STARTED` state:
+
+3. `Flow<T>.collectWhileStartedIn(LifecycleOwner)`
+4. `Flow<T>.collectWhileStarted(LifecycleOwner, suspend (T) -> Unit)`
 
 Those functions collect the flow and:
 
-1. Destroy its collection job on LifecycleOwner's `onStop()`.
-2. Recreates its collection job on LifecycleOwner's `onStart()`.
+1. Destroy its collection job on LifecycleOwner's `onPause()` (`collectWhileResumed`/`collectWhileResumedIn`) or `onStop()` (`collectWhileStarted`/`collectWhileStartedIn`).
+2. Recreates its collection job on LifecycleOwner's `onResume()` (`collectWhileResumed`/`collectWhileResumedIn`) or `onStart()` (`collectWhileStarted`/`collectWhileStartedIn`).
 
 ## Motivation
 
@@ -42,7 +49,7 @@ On app-level `build.gradle`, add dependency:
 
 ```groovy
 dependencies {
-    implementation 'com.github.psteiger:flow-lifecycle-observer:0.1.2'
+    implementation 'com.github.psteiger:flow-lifecycle-observer:0.2.0'
 }
 ```
 
@@ -58,11 +65,11 @@ class NearbyUsersActivity : AppCompatActivity() {
         viewModel
             .locations
             .onEach { /* new locations received */ }
-            .observeIn(this)
+            .collectWhileStartedIn(this)
             
         viewModel
             .users
-            .observe(this) {
+            .collectWhileStarted(this) {
                 /* new users received */
             }
     }
