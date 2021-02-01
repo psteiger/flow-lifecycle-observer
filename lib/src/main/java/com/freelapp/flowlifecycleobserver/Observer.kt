@@ -111,7 +111,7 @@ internal class ObserverWhileResumedImpl<T>(
 
 @Deprecated(
     "Old alias for collectWhileStarted",
-    ReplaceWith("collectWhileStarted")
+    ReplaceWith("collectWhileStarted(lifecycleOwner, collector)")
 )
 inline fun <reified T> Flow<T>.observe(
     lifecycleOwner: LifecycleOwner,
@@ -122,7 +122,7 @@ inline fun <reified T> Flow<T>.observe(
 
 @Deprecated(
     "Old alias for collectWhileStartedIn",
-    ReplaceWith("collectWhileStartedIn")
+    ReplaceWith("collectWhileStartedIn(lifecycleOwner)")
 )
 inline fun <reified T> Flow<T>.observeIn(
     lifecycleOwner: LifecycleOwner
