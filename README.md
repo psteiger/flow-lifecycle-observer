@@ -1,3 +1,7 @@
+### Important Note
+
+Google's library `androidx.lifecycle:lifecycle-runtime-ktx:2.4.0-alpha01` introduced three new APIs that fullfil the same use cases of `flow-lifecycle-observer`, and probably more: `LifecycleOwner.addRepeatingJob`, `Lifecycle.repeatOnLifecycle`, and `Flow.flowWithLifecycle`. You can check [this Medium post](https://medium.com/androiddevelopers/a-safer-way-to-collect-flows-from-android-uis-23080b1f8bda) and the [official documentation](https://developer.android.com/jetpack/androidx/releases/lifecycle) for more information.
+
 # flow-lifecycle-observer
 
 [![](https://jitpack.io/v/psteiger/flow-lifecycle-observer.svg)](https://jitpack.io/#psteiger/flow-lifecycle-observer)
